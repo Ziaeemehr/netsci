@@ -1,3 +1,3 @@
 # Network science notebooks
 
-- Network Science, Barabasi, 2012
+- Network Science, Barabasi, 2016
