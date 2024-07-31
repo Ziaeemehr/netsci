@@ -11,6 +11,6 @@
 
 - using on local machines
 ```bash
-!pip install "git+https://github.com/Ziaeemehr/netsci.git" 
+pip install "git+https://github.com/Ziaeemehr/netsci.git" 
 ```
 
