@@ -52,3 +52,45 @@ def find_hamiltonian_path(G):
         if is_hamiltonian_path(G, perm):
             return perm
     return None
+
+
+def graph_info(G):
+    """
+    Generate various graph information.
+
+    Parameters:
+    G (networkx.Graph, networkx.DiGraph): The input graph for which the information is to be generated.
+
+    Returns:
+    dict: A dictionary containing the graph information.
+    """
+    is_directed = isinstance(G, nx.DiGraph)
+    if is_directed:
+        diameter = nx.diameter(G)
+    else:
+        diameter = np.nan
+
+    return {
+        "Directed": is_directed,
+        "Number of nodes": len(G.nodes()),
+        "Number of edges": len(G.edges()),
+        "average_degree": sum(dict(G.degree).values()) / len(G.nodes),
+        "diameter": diameter,
+        "average clustering coefficient": nx.average_clustering(G),
+        
+    }
+    
+def average_degree(G):
+    """
+    Calculate the average degree of a graph.
+    
+    Parameters:
+    G (networkx.Graph or networkx.DiGraph): The input graph, which can be directed or undirected.
+    
+    Returns:
+    float: The average degree of the graph.
+    """
+    
+    degrees = [d for n, d in G.degree()]
+    average_degree = sum(degrees) / len(degrees)
+    return average_degree

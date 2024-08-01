@@ -1,3 +1,4 @@
+import numpy as np
 import networkx as nx
 
 
@@ -12,3 +13,5 @@ def get_adjacency_list(G):
     dict: A dictionary where each key is a node in the graph and the corresponding value is a list of neighboring nodes.
     """
     return {n: list(neighbors) for n, neighbors in G.adj.items()}
+
+
