@@ -4,23 +4,39 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
+
 def plot_graph(G, **kwargs):
     """
     Plots a NetworkX graph with customizable options.
 
-    Parameters:
-    - G: A NetworkX graph object (nx.Graph, nx.DiGraph, etc.).
-    - kwargs: Additional keyword arguments to customize the plot. These can include:
-      - 'node_color': Color of the nodes (can be a single color or a list of colors).
-      - 'node_size': Size of the nodes (single value or list of sizes).
-      - 'edge_color': Color of the edges (can be a single color or a list of colors).
-      - 'width': Width of the edges.
-      - 'with_labels': Whether to draw node labels or not.
-      - 'font_size': Size of the font for node labels.
-      - 'font_color': Color of the font for node labels.
-      - 'title': Title of the plot.
-      - 'seed': Seed for the random layout algorithm (optional).
-      - 'figsize': Size of the figure (optional).
+    Parameters
+    ----------
+    G : NetworkX graph
+        A NetworkX graph object (e.g., nx.Graph, nx.DiGraph).
+    **kwargs : keyword arguments
+        Additional keyword arguments to customize the plot. These can include:
+        
+        node_color : str or list, optional
+            Color of the nodes (can be a single color or a list of colors).
+        node_size : int or list, optional
+            Size of the nodes (single value or list of sizes).
+        edge_color : str or list, optional
+            Color of the edges (can be a single color or a list of colors).
+        width : float, optional
+            Width of the edges.
+        with_labels : bool, optional
+            Whether to draw node labels or not.
+        font_size : int, optional
+            Size of the font for node labels.
+        font_color : str, optional
+            Color of the font for node labels.
+        title : str, optional
+            Title of the plot.
+        seed : int, optional
+            Seed for the random layout algorithm.
+        figsize : tuple, optional
+            Size of the figure.
+
     """
 
     # Extracting optional arguments
