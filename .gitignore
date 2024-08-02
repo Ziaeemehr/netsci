@@ -31,6 +31,9 @@ env/
 *.gz
 tt.ipynb 
 tt.py
+*.png 
+*.pdf 
+*.jpeg
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
