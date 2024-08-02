@@ -1,5 +1,6 @@
 [build-system]
 requires = [
+    "hatchling",
     "setuptools", 
     "wheel"
 ]
@@ -7,7 +8,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "netsci"
-dynamic=['version']
+# version = "0.0.2"
+dynamic = ['version']
 description = "Provide codes for Network Science book from Barabasi, 2013"
 authors = [
     { name = "Abolfazl Ziaeemehr", email = "a.ziaeemehr@gmail.com" },
@@ -23,15 +25,14 @@ dependencies = [
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    
-    "Topic :: Scientific/Engineering :: Network Science",
+    "Topic :: Scientific/Engineering :: Information Analysis",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
+
 [project.urls]
 homepage = "https://ziaeemehr.github.io/netsci/"
 repository = "https://github.com/Ziaeemehr/netsci"
-
 
 [tool.hatch.version]
 path = "netsci/_version.py"
