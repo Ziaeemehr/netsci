@@ -1,6 +1,6 @@
 # Network science notebooks
 
-- Network Science, Barabasi, 2016
+- Network Science, Barabasi, 2013
 
 #### How to use 
 - using on Colab (Recommended)
