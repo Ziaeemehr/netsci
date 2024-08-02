@@ -13,7 +13,8 @@ def get_adjacency_list(G):
     G (networkx.Graph, networkx.DiGraph): 
         The input graph for which the adjacency list is to be generated.
 
-    Returns:
+    Returns
+    ---------
     value: dict 
         A dictionary where each key is a node in the graph and the corresponding value is a list of neighboring nodes.
     """
