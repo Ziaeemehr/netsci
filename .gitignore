@@ -29,6 +29,8 @@ env/
 
 *.txt
 *.gz
+tt.ipynb 
+tt.py
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/

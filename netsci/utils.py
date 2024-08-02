@@ -67,6 +67,8 @@ def load_sample_graph(name, verbose=True):
         G = _load_graph(file_path, kind, url=data[name]['url'])
         if verbose:
             print(f'Successfully loaded {name}')
+            print('================================')
+            print(data[name]['description'])
         return G
         
     
