@@ -23,7 +23,8 @@ dependencies = [
     "numpydoc",
     "matplotlib",
     "seaborn",
-    "setuptools-scm"
+    "setuptools-scm",
+    "powerlaw"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

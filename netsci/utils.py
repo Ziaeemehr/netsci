@@ -4,6 +4,11 @@ import json
 import numpy as np
 import networkx as nx
 
+try:
+    import powerlaw
+except:
+    pass
+
 
 def get_adjacency_list(G):
     """
@@ -88,4 +93,56 @@ def show_sample_graphs():
     return data
     
     
+def generate_power_law_dist_bounded(N:int, a:float, xmin:float, xmax:float):
+    '''
+    Generate a power law distribution of floats p(k) ~ x^(-a) for a>1
+    which is bounded by xmin and xmax
+    
+    parameters :
+        N: int
+            number of samples in powerlaw distribution (pwd).
+        e: 
+            exponent of the pwd.
+        xmin: 
+            min value in pwd.
+        xmax: 
+            max value in pwd.
+    '''
 
+    from numpy.random import rand, randint
+    from numpy import power
+
+    data = np.zeros(N)
+    x0p = power(xmin, (a+1.0))
+    x1p = power(xmax, (a+1.0))
+    alpha = 1.0/(a+1.0)
+
+    for i in range(N):
+        r = rand()
+        data[i] = (power((x1p - x0p)*r + x0p, alpha))
+    return data
+
+
+def generate_power_law_dist(N:int, a:float, xmin:float):
+    '''
+    generate power law random numbers p(k) ~ x^(-a) for a>1
+    
+    Parameters
+    -----------
+    N:
+        is the number of random numbers
+    a:
+        is the exponent
+    xmin:
+        is the minimum value of distribution
+    
+    Returns
+    -----------
+    value: np.array
+        powerlaw distribution
+    '''
+    
+    # generates random variates of power law distribution
+    vrs = powerlaw.Power_Law(xmin=xmin, parameters=[a]).generate_random(N)
+
+    return vrs
