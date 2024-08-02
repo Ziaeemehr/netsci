@@ -51,13 +51,15 @@ def load_sample_graph(name, verbose=True):
 
     Parameters
     --------------
-    name (str): 
+    name: str
         The name of the graph. Get names from `netsci.utils.show_sample_graphs()`.
+    verbose: bool, optional
+        If True, print information about the loaded graph. Default is True.
 
     Returns
     -----------
     value: networkx.Graph
-        The loaded graph.
+        Loaded graph.
     """
     
     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -101,7 +103,7 @@ def generate_power_law_dist_bounded(N:int, a:float, xmin:float, xmax:float):
     parameters :
         N: int
             number of samples in powerlaw distribution (pwd).
-        e: 
+        a: 
             exponent of the pwd.
         xmin: 
             min value in pwd.
