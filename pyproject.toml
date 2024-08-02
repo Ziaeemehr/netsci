@@ -1,22 +1,37 @@
 [build-system]
-requires = ["setuptools", "wheel", "nbconvert"]
+requires = [
+    "setuptools", 
+    "wheel"
+]
 build-backend = "setuptools.build_meta"
 
-[tool.poetry]
+[project]
 name = "netsci"
-version = "0.1.0"
-description = "Provide codes for Network Science book from Barabasi"
+dynamic=['version']
+description = "Provide codes for Network Science book from Barabasi, 2013"
 authors = [
-    { name="Abolfazl Ziaeemehr", email="a.ziaeemehr@gmail.com" },
+    { name = "Abolfazl Ziaeemehr", email = "a.ziaeemehr@gmail.com" },
 ]
-license = "MIT"
-
-[tool.poetry.dependencies]
-python = "^3.7"
-
-[tool.poetry.dev-dependencies]
-pytest = "^6.0"
-
-[tool.poetry.urls]
-homepage = "https://example.com"
+readme = "README.md"
+dependencies = [
+    "numpy",
+    "networkx",
+    "nbconvert",
+    "numpydoc",
+    "matplotlib",
+    "setuptools-scm"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    
+    "Topic :: Scientific/Engineering :: Network Science",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+[project.urls]
+homepage = "https://ziaeemehr.github.io/netsci/"
 repository = "https://github.com/Ziaeemehr/netsci"
+
+
+[tool.hatch.version]
+path = "netsci/_version.py"
