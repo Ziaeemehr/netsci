@@ -17,6 +17,7 @@ authors = [
 readme = "README.md"
 dependencies = [
     "numpy",
+    "scipy",
     "networkx",
     "nbconvert",
     "numpydoc",
