@@ -1,3 +1,6 @@
+[![Documentation Status](https://github.com/Ziaeemehr/netsci/actions/workflows/documents.yml/badge.svg
+)](https://ziaeemehr.github.io/netsci/)
+
 # Network science notebooks
 
 - Network Science, Barabasi, 2013
