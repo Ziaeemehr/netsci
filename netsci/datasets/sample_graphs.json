@@ -1,0 +1,26 @@
+{
+  "cit-HepPh": {
+    "url": "https://snap.stanford.edu/data/cit-HepPh.txt.gz",
+    "description": "Paper citation network of Arxiv High Energy Physics category",
+    "directed": true,
+    "statistics": {
+      "Nodes": 34546,
+      "Edges": 421578,
+      "Nodes in largest WCC": 34401,
+      "Edges in largest WCC": 421485,
+      "Nodes in largest SCC": 12711,
+      "Edges in largest SCC": 139981,
+      "Average clustering coefficient": 0.2848,
+      "Number of triangles": 1276868,
+      "Fraction of closed triangles": 0.05377,
+      "Diameter (longest shortest path)": 12,
+      "90-percentile effective diameter": 5
+    }
+  },
+  "web-Stanford": {
+    "url": "https://snap.stanford.edu/data/web-Stanford.txt.gz",
+    "description": "Stanford web graph from 2002",
+    "directed": true,
+    "statistics": {}
+  }
+}

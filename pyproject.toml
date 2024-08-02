@@ -21,6 +21,7 @@ dependencies = [
     "nbconvert",
     "numpydoc",
     "matplotlib",
+    "seaborn",
     "setuptools-scm"
 ]
 classifiers = [

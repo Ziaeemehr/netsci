@@ -162,7 +162,7 @@ def graph_info(G, quick=True):
     print(f"{'Connectivity':40s}: {connectivity:>20s}")
     if not quick:
         print(f"{'Diameter':40s}: {diameter:20d}")
-    print(f"{'Average clustering coefficient':40s}: {nx.average_clustering(G):20.6f}")
+        print(f"{'Average clustering coefficient':40s}: {nx.average_clustering(G):20.6f}")
         
     # return {
     #     "Directed": is_directed,

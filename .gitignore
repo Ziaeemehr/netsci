@@ -27,6 +27,9 @@ env/
 *.swp
 *.swo
 
+*.txt
+*.gz
+
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
