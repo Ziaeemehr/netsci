@@ -5,6 +5,7 @@ from setuptools_scm import get_version
 
 # sys.path.insert(0,os.path.abspath("../examples"))
 sys.path.insert(0,os.path.abspath("../netsci"))
+sys.path.insert(0, os.path.abspath("."))
 
 needs_sphinx = '1.3'
 

@@ -29,6 +29,13 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+
+Quick Start
+===========================
+
+.. automodule:: quick_start
+
+
 API and documentation
 ===========================
 

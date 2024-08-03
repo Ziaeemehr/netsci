@@ -36,6 +36,8 @@ def plot_graph(G, **kwargs):
             Seed for the random layout algorithm.
         figsize : tuple, optional
             Size of the figure.
+        ax: axes object
+            Axes object to draw the plot on. Defaults to None, which will create a new figure.
 
     """
 
@@ -51,10 +53,11 @@ def plot_graph(G, **kwargs):
     seed = kwargs.get("seed", None)
     edge_labels = kwargs.get("edge_labels", None)
     figsize = kwargs.get("figsize", (4, 4))
+    ax = kwargs.get("ax", None)
 
-    if "figsize" in kwargs:
-        plt.figure(figsize=figsize)
-        plt.axis("off")
+    if ax is None:
+        fig, ax = plt.subplots(1, figsize=figsize)
+        ax.axis("off")
 
     if seed is not None:
         np.random.seed(seed)  # Set the random seed for reproducibility
@@ -75,6 +78,7 @@ def plot_graph(G, **kwargs):
         with_labels=with_labels,
         font_size=font_size,
         font_color=font_color,
+        ax=ax
     )
 
     if edge_labels is not None:
@@ -83,6 +87,8 @@ def plot_graph(G, **kwargs):
     # Set the plot title
     if title is not None:
         plt.title(title)
+    
+    return ax
 
     # Show the plot
     # plt.show()
