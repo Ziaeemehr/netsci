@@ -308,6 +308,15 @@ def generate_power_law_discrete_its(alpha:float, k_min:int, k_max:int, size:int=
     np.array:
         Array of generated power law discrete distributions.
     
+    
+    Examples
+    ---------
+    
+    >>> gamma = 2.5  # Power-law exponent
+    >>> k_min = 1    # Minimum value of k
+    >>> k_max = 1000 # Maximum value of k
+    >>> size = 10000 # Number of samples
+    >>> samples = power_law_discrete(gamma, k_min, k_max, size)
     """
     
     
