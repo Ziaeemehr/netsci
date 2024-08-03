@@ -3,11 +3,10 @@ import numpy as np
 import networkx as nx
 
 
-def find_sap(graph, start, target, path=None):
+def find_sap(G, start, target, path=None):
     
     """
     Finds all self-avoiding paths (SAPs) in a given graph from a start node to a target node.
-
     A self-avoiding path is a path that does not revisit any node.
 
     Parameters
@@ -41,15 +40,18 @@ def find_sap(graph, start, target, path=None):
     
     if path is None:
         path = []
+        
+    if len(G.nodes()) == 0:
+        return []
 
     path.append(start)
 
     if start == target:
         yield path[:]
     else:
-        for neighbor in graph.neighbors(start):
+        for neighbor in G.neighbors(start):
             if neighbor not in path:
-                yield from find_sap(graph, neighbor, target, path)
+                yield from find_sap(G, neighbor, target, path)
 
     path.pop()
 
