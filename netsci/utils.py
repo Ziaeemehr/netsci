@@ -289,7 +289,10 @@ def generate_power_law_discrete_its(alpha:float, k_min:int, k_max:int, size:int=
     
     """ 
     Generates the power law discrete distributions using the inverse transform sampling method.
-    References 
+    
+    References
+    -----------
+     
     Devroye, L. (1986). "Non-Uniform Random Variate Generation." Springer-Verlag, New York.
     
     Parameters
