@@ -31,6 +31,7 @@ env/
 *.gz
 tt.ipynb 
 tt.py
+tt/
 *.png 
 *.pdf 
 *.jpeg

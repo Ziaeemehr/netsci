@@ -38,6 +38,9 @@ def plot_graph(G, **kwargs):
             Size of the figure.
         ax: axes object
             Axes object to draw the plot on. Defaults to None, which will create a new figure.
+        pos: object, optional
+            Graph layout (e.g., nx.spring_layout, nx.circular_layout), nx.kamada_kaway_layout(G). 
+            Defaults to nx.spring_layout(G).
 
     """
 
@@ -54,18 +57,19 @@ def plot_graph(G, **kwargs):
     edge_labels = kwargs.get("edge_labels", None)
     figsize = kwargs.get("figsize", (4, 4))
     ax = kwargs.get("ax", None)
+    pos = kwargs.get("pos", None)
 
     if ax is None:
         fig, ax = plt.subplots(1, figsize=figsize)
         ax.axis("off")
 
     if seed is not None:
-        np.random.seed(seed)  # Set the random seed for reproducibility
+        np.random.seed(seed)  
 
-    # Position nodes using a layout algorithm
-    pos = nx.spring_layout(
-        G, seed=seed
-    )  # You can choose other layouts like nx.circular_layout(G) or nx.kamada_kaway_layout(G)
+    if pos is None:
+        pos = nx.spring_layout(
+            G, seed=seed
+    )
 
     # Draw the network
     nx.draw(

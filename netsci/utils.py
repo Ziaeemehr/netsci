@@ -3,6 +3,9 @@ import gzip
 import json
 import numpy as np
 import networkx as nx
+from numpy import power
+from cycler import cycler
+from scipy.optimize import bisect
 
 try:
     import powerlaw
@@ -95,7 +98,7 @@ def show_sample_graphs():
     return data
     
     
-def generate_power_law_dist_bounded(N:int, a:float, xmin:float, xmax:float):
+def generate_power_law_dist_bounded(N:int, a:float, xmin:float, xmax:float, seed:int=-1):
     '''
     Generate a power law distribution of floats p(k) ~ x^(-a) for a>1
     which is bounded by xmin and xmax
@@ -148,3 +151,136 @@ def generate_power_law_dist(N:int, a:float, xmin:float):
     vrs = powerlaw.Power_Law(xmin=xmin, parameters=[a]).generate_random(N)
 
     return vrs
+
+def generate_power_law_discrete(
+    N:int, a:float, xmin:float, xmax:float, seed: int = -1
+    ):
+    """
+    Generate a power law distribution of p(k) ~ x^(-a) for a>1,
+    with discrete values.
+
+    Parameters:
+    -----------
+    N: int
+        Number of samples in the distribution.
+    a: float
+        Exponent of the power law distribution.
+    xmin: float
+        Minimum value in the power law distribution.
+    xmax: float
+        Maximum value in the power law distribution.
+    seed :int, optional
+        Seed for reproducibility. Defaults to -1.
+
+    Returns:
+    -------
+    np.array
+        Power law distribution with discrete values.
+    """
+
+    if seed!= -1:
+        np.random.seed(seed)
+
+    if seed != None:
+        np.random.seed(seed)
+
+    X = np.zeros(N, dtype=int)
+    x1p = power(xmax, (a + 1.0))
+    x0p = power(xmin, (a + 1.0))
+    alpha = 1.0/(a + 1.0)
+    
+    for i in range(N):
+        r = np.random.rand()
+        X[i] = int(np.round(power(((x1p - x0p)*r + x0p), alpha)))
+    
+    #sum of degrees should be positive
+    from random import randint
+    if ((np.sum(X)%2 )!= 0):
+        i = randint(0, N-1)
+        X[i] = X[i]+1
+
+    return X
+
+
+def tune_min_degree(
+    N:int, a:float, xmin:int, xmax:int, max_iteration:int=100
+    ):
+    '''
+    Find the minimum degree value of a power law graph that results in a connected graph
+    '''
+    
+    for i in range(max_iteration):
+        seq = generate_power_law_discrete(N, a, xmin, xmax, seed=i)
+        if np.sum(seq) % 2 != 0:
+            raise ValueError("The sum of degrees should be even")
+        G = nx.configuration_model(seq)
+        G.remove_edges_from(G.selfloop_edges())
+        G = nx.Graph(G)
+        seq1 = np.asarray([deg for (node, deg) in G.degree_iter()])
+        avg_degree = np.mean(seq1)
+        
+        if nx.is_connected(G):
+            break 
+    if i == (max_iteration-1):
+        raise ValueError("Unable to find a connected graph with the given parameters")
+    return avg_degree, G
+
+def make_powerlaw_graph(
+    N: int, a: float, avg_degree:int, xmin:int=1, xmax:int=10000, 
+    seed: int = -1, xtol=0.01, degree_interval=5.0, plot=False,
+    **kwargs
+    ):
+    
+    '''
+    make a powerlaw graph with the given parameters
+    
+    Parameters
+    ----------
+    N: 
+        number of nodes
+    a: float
+        exponent of the power law distribution
+    avg_degree: 
+        expected average degree
+    xmin: int, optional
+        minimum value in the power law distribution. Default is 1.
+    xmax: int, optional
+        maximum value in the power law distribution. Default is 10000.
+    seed: int, optional
+        Seed for reproducibility. Default is -1.
+    xtol: float, optional
+        tolerance for bisection method. Default is 0.01.
+    degree_interval: float, optional
+        interval for bisection method. Default is 5.0.
+    plot: bool, optional
+        If True, plot the power law distribution. Default is False.
+    kwargs: obtional
+        additional keyword arguments for plot_pdf function.
+        
+    '''
+    
+    color = kwargs.get('color', 'k')
+    linestyle = kwargs.get('linestyle', '-')
+    lw=kwargs.get('lw', 2)
+    
+    xmin_tuned, G = bisect(lambda x: tune_min_degree(
+            N, a, x, xmax) - avg_degree, xmin, xmin+degree_interval, xtol=xtol)
+    sample_seq = np.asarray([deg for (node, deg) in G.degree_iter()])
+    avg_degree = np.mean(sample_seq)
+    
+    fit = powerlaw.Fit(sample_seq, discrete=True)
+    if plot:
+        ax = fit.plot_pdf(linewidth=2, label=str('pdf, %.2f'% a));
+        fit.power_law.plot_pdf(c=color, linestyle=linestyle, lw=lw, ax=ax);
+    
+    return {
+        "G": G,
+        "avg_degree": avg_degree,
+        "xmin_tuned": xmin_tuned,
+        "fit": fit,
+        "ax": ax,
+    }
+    
+    
+        
+    
