@@ -1,3 +1,4 @@
+[![Test](https://github.com/Ziaeemehr/netsci/actions/workflows/tests.yml/badge.svg)](https://github.com/Ziaeemehr/netsci/actions/workflows/tests.yml)
 [![Documentation Status](https://github.com/Ziaeemehr/netsci/actions/workflows/documents.yml/badge.svg
 )](https://ziaeemehr.github.io/netsci/)
 
