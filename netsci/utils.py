@@ -5,7 +5,9 @@ import numpy as np
 import networkx as nx
 from numpy import power
 from cycler import cycler
+from scipy.special import zeta
 from scipy.optimize import bisect
+
 
 try:
     import powerlaw
@@ -283,4 +285,48 @@ def make_powerlaw_graph(
     
     
         
+def generate_power_law_discrete_its(alpha:float, k_min:int, k_max:int, size:int=1):
     
+    """ 
+    Generates the power law discrete distributions using the inverse transform sampling method.
+    References 
+    Devroye, L. (1986). "Non-Uniform Random Variate Generation." Springer-Verlag, New York.
+    
+    Parameters
+    ----------
+    alpha : 
+        Power law exponent.
+    k_min : 
+        Minimum degree.
+    k_max :
+        Maximum degree.
+    size : 
+        Number of samples to generate. Defaults to 1.
+    
+    Returns
+    -------
+    np.array:
+        Array of generated power law discrete distributions.
+    
+    """
+    
+    
+    # Calculate the normalization constant
+    norm = zeta(alpha, k_min) - zeta(alpha, k_max + 1)
+    
+    # Generate uniform random numbers
+    u = np.random.random(size=size)
+    
+    # Initialize the result array
+    result = np.zeros(size, dtype=int)
+    
+    # Inverse transform sampling
+    for i in range(size):
+        cdf = 0
+        for k in range(k_min, k_max + 1):
+            cdf += (k ** -alpha) / norm
+            if u[i] <= cdf:
+                result[i] = k
+                break
+    
+    return result
