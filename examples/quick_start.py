@@ -50,7 +50,10 @@ for path in all_saps:
 
 plot_graph(G, seed=2, figsize=(3, 3))
 import os
-os.makedirs("images", exist_ok=True)
-plt.savefig("images/01.png", bbox_inches="tight")
+# get current working directory
+cwd = os.getcwd()
+path = os.getcwd() + "images"
+os.makedirs(path, exist_ok=True)
+plt.savefig(path+"/01.png", bbox_inches="tight")
 
 # example-end
