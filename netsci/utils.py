@@ -120,9 +120,9 @@ def generate_power_law_dist_bounded(N:int, a:float, xmin:float, xmax:float, seed
     from numpy import power
 
     data = np.zeros(N)
-    x0p = power(xmin, (a+1.0))
-    x1p = power(xmax, (a+1.0))
-    alpha = 1.0/(a+1.0)
+    x0p = power(xmin, (-a+1.0))
+    x1p = power(xmax, (-a+1.0))
+    alpha = 1.0/(-a+1.0)
 
     for i in range(N):
         r = rand()
@@ -180,16 +180,16 @@ def generate_power_law_discrete(
         Power law distribution with discrete values.
     """
 
-    if seed!= -1:
+    if seed != -1:
         np.random.seed(seed)
 
     if seed != None:
         np.random.seed(seed)
 
     X = np.zeros(N, dtype=int)
-    x1p = power(xmax, (a + 1.0))
-    x0p = power(xmin, (a + 1.0))
-    alpha = 1.0/(a + 1.0)
+    x1p = power(xmax, (-a + 1.0))
+    x0p = power(xmin, (-a + 1.0))
+    alpha = 1.0/(-a + 1.0)
     
     for i in range(N):
         r = np.random.rand()
