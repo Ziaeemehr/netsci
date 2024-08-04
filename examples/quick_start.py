@@ -26,7 +26,7 @@ Finally, visualize the graph.
     :start-after: example-st\u0061rt
     :lines: 18
       
-.. figure:: images/01.png
+.. figure:: ../examples/images/01.png
     :scale: 80 %
 """
 
