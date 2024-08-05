@@ -186,7 +186,8 @@ def longest_shortest_path(G):
         The input graph, which can be directed or undirected.
         The graph should be connected, otherwise the diameter will not be defined.
 
-    Returns:
+    Returns
+    ---------
     value : int, float
         The longest shortest path (diameter) in the graph.
         If the graph is empty, returns 0.
@@ -207,7 +208,8 @@ def average_degree(G):
     G (networkx.Graph or networkx.DiGraph): 
         The input graph, which can be directed or undirected.
     
-    Returns:
+    Returns
+    -----------
     vlaue: float
         The average degree of the graph.
     """

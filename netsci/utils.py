@@ -4,6 +4,7 @@ import json
 import numpy as np
 import networkx as nx
 from numpy import power
+from os.path import join
 from cycler import cycler
 from scipy.special import zeta
 from scipy.optimize import bisect
@@ -32,25 +33,71 @@ def get_adjacency_list(G):
     return {n: list(neighbors) for n, neighbors in G.adj.items()}
 
 
-def _load_graph(file_path, kind, url):
+# def _load_graph(file_path, kind, url):
     
+#     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#     path = os.path.join(path, 'netsci/datasets')
+    
+#     if not os.path.isfile(file_path):
+#         os.system(f"wget -P {path} {url}")
+        
+#     if os.path.isfile(file_path):
+#         os.system(f"gunzip -k {file_path}")
+    
+#     with gzip.open(file_path, 'rt') as f:
+#         G = nx.read_adjlist(file_path, create_using=kind)
+    
+#     os.remove(file_path[:-3]) 
+#     return G
+    
+def _load_graph(file_path, url, verbose=False):
+
     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    path = os.path.join(path, 'netsci/datasets')
+    path = join(path, 'netsci/datasets')
+    path_zip = join(path, "networks.zip")
     
     if not os.path.isfile(file_path):
-        os.system(f"wget -P {path} {url}")
-        
-    if os.path.isfile(file_path):
-        os.system(f"gunzip -k {file_path}")
-    
-    with gzip.open(file_path, 'rt') as f:
-        G = nx.read_adjlist(file_path, create_using=kind)
-    
-    os.remove(file_path[:-3]) 
-    return G
-    
+        if not os.path.isfile(path_zip):
+            os.system(f"wget -P {path} {url}")
 
-def load_sample_graph(name, verbose=True):
+    if not os.path.isfile(file_path):
+        if os.path.isfile(path_zip):
+            os.system(f"unzip {path_zip} -d {path}")
+            # print(f"unzip {path_zip} -d {path}")
+
+
+    # Step 1: Read the adjacency list from the file
+    edges = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            if line.startswith('#'):
+                continue  # Skip comments
+            A, B = map(int, line.split())
+            edges.append((A, B))
+
+    # Step 2: Create the graph
+    G = nx.DiGraph()
+    G.add_edges_from(edges)
+
+    # Step 3: Determine if the graph is directed
+    is_directed = False
+    for A, B in edges:
+        if not G.has_edge(B, A):
+            is_directed = True
+            break
+
+    if is_directed:
+        if verbose:
+            print("The graph is directed.")
+    else:
+        if verbose:
+            print("The graph is undirected.")
+        G = G.to_undirected()
+    return G
+
+
+
+def load_sample_graph(name, verbose=False):
     """
     Load a graph and return it as a NetworkX graph.
 
@@ -68,15 +115,14 @@ def load_sample_graph(name, verbose=True):
     """
     
     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    path = os.path.join(path, 'netsci/datasets')
+    path = os.path.join(path, 'netsci/datasets/')
     
     with open(os.path.join(path,'sample_graphs.json'), 'r') as f:
         data = json.load(f)
     if name in list(data.keys()):
-        file_path = os.path.join(path, f'{name}.txt.gz')
-        directed = data[name]['directed']
-        kind = nx.DiGraph if directed else nx.Graph            
-        G = _load_graph(file_path, kind, url=data[name]['url'])
+        filename = data[name]['filename']
+        file_path = os.path.join(path, f'{filename}')
+        G = _load_graph(file_path, url=data[name]['url'], verbose=verbose)
         if verbose:
             print(f'Successfully loaded {name}')
             print('================================')
@@ -84,7 +130,7 @@ def load_sample_graph(name, verbose=True):
         return G
         
     
-def show_sample_graphs():
+def list_sample_graphs():
     '''
     make a list of available real world graphs on datasets
     '''
