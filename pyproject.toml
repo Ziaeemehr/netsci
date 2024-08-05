@@ -24,7 +24,8 @@ dependencies = [
     "matplotlib",
     "seaborn",
     "setuptools-scm",
-    "powerlaw"
+    "powerlaw",
+    "tqdm"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

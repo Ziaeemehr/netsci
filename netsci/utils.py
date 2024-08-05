@@ -50,7 +50,7 @@ def get_adjacency_list(G):
 #     os.remove(file_path[:-3]) 
 #     return G
     
-def _load_graph(file_path, url, verbose=False):
+def _load_graph(file_path, url, directed, verbose=False):
 
     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     path = join(path, 'netsci/datasets')
@@ -63,7 +63,6 @@ def _load_graph(file_path, url, verbose=False):
     if not os.path.isfile(file_path):
         if os.path.isfile(path_zip):
             os.system(f"unzip {path_zip} -d {path}")
-            # print(f"unzip {path_zip} -d {path}")
 
 
     # Step 1: Read the adjacency list from the file
@@ -80,18 +79,13 @@ def _load_graph(file_path, url, verbose=False):
     G.add_edges_from(edges)
 
     # Step 3: Determine if the graph is directed
-    is_directed = False
-    for A, B in edges:
-        if not G.has_edge(B, A):
-            is_directed = True
-            break
+    # is_directed = False
+    # for A, B in edges:
+    #     if not G.has_edge(B, A):
+    #         is_directed = True
+    #         break
 
-    if is_directed:
-        if verbose:
-            print("The graph is directed.")
-    else:
-        if verbose:
-            print("The graph is undirected.")
+    if not directed:
         G = G.to_undirected()
     return G
 
@@ -122,7 +116,11 @@ def load_sample_graph(name, verbose=False):
     if name in list(data.keys()):
         filename = data[name]['filename']
         file_path = os.path.join(path, f'{filename}')
-        G = _load_graph(file_path, url=data[name]['url'], verbose=verbose)
+        directed = data[name]['directed']
+        G = _load_graph(file_path, 
+                        url=data[name]['url'], 
+                        directed=directed,
+                        verbose=verbose)
         if verbose:
             print(f'Successfully loaded {name}')
             print('================================')
