@@ -25,7 +25,8 @@ dependencies = [
     "seaborn",
     "setuptools-scm",
     "powerlaw",
-    "tqdm"
+    "tqdm",
+    "python-igraph"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
