@@ -29,6 +29,7 @@ env/
 
 *.txt
 *.gz
+*.zip
 tt.ipynb 
 tt.py
 tt/
