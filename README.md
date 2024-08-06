@@ -4,7 +4,7 @@
 
 # Network science notebooks
 
-- Network Science, Barabasi, 2013
+- Network Science, Barabási, 2013
 
 #### How to use 
 - using on Colab (Recommended)
