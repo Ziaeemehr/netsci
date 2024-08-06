@@ -1,4 +1,4 @@
-Python codes for Network Science, Barabasi, 2013.
+Python codes for Network Science, Barabási, 2013.
 ##################################################
 
 - Barabási, A.L., 2013. Network science. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 371(1987), p.20120375.
