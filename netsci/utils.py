@@ -396,3 +396,9 @@ def generate_power_law_discrete_its(
                 break
 
     return result
+
+
+def get_sample_dataset_path():
+    path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path = os.path.join(path, "netsci/datasets/")
+    return path
