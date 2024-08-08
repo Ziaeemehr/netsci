@@ -51,6 +51,23 @@ def get_adjacency_list(G):
 #     return G
 
 
+def download_sample_dataset():
+    url = "https://networksciencebook.com/translations/en/resources/networks.zip"
+    path = get_sample_dataset_path()
+    path_zip = join(path, "networks.zip")
+    file_path = join(path, "collaboration.edgelist.txt")
+    if not os.path.isfile(path_zip):
+        os.system(f"wget -P {path} {url}")
+    else:
+        print(f"File {path_zip} already exists.")
+    
+    if not os.path.isfile(file_path):
+        if os.path.isfile(path_zip):
+            os.system(f"unzip {path_zip} -d {path}")
+            print(f"Extracted {path_zip} to {path}")        
+
+
+
 def _load_graph(file_path, url, directed, verbose=False):
 
     path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
