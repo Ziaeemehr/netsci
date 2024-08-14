@@ -9,9 +9,9 @@ Installation, How to use
 
 - using on Colab (Recommended)
 
-    - Go to examples
-    - Open a notebook and click on "open on colab"
-    - Uncomment the cell with pip install command to install the netsci package.
+  - Go to examples
+  - Open a notebook and click on "open on colab"
+  - Uncomment the cell with pip install command to install the netsci package.
 
 - using on local machines
 
@@ -28,6 +28,25 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Table of Chapters
+=============================
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - View Notebook
+     - Open in Colab
+   * - `Networkx quick guide <https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_networkx.ipynb>`_
+     - `Networkx quick guide [C] <https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_networkx.ipynb>`_
+   * - `Igraph quick guide <https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_igraph.ipynb>`_
+     - `Igraph quick guide [C] <https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_igraph.ipynb>`_
+   * - `Chapter 2 <https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb>`_
+     - `Chapter 2 [C] <https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb>`_
+   * - `Chapter 3 <https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb>`_
+     - `Chapter 3 [C] <https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb>`_
+   * - `Chapter 4 <https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_04.ipynb>`_
+     - `Chapter 4 [C] <https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_04.ipynb>`_
 
 
 Chapters 
