@@ -19,3 +19,15 @@
 pip install "git+https://github.com/Ziaeemehr/netsci.git" 
 ```
 
+
+### Chapters
+
+
+| View    | Open on Colab    |
+|--------------|--------------|
+| [Networkx quick guide](https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_networkx.ipynb)| <a href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_networkx.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>|
+| [igraph quick guide](https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_igraph.ipynb)| <a href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_igraph.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>|
+| [Chapter 2](https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb)| <a href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>|
+| [Chapter 3](https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb)| <a href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>|
+| [Chapter 4](https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_04.ipynb)| <a href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_04.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>|
+
