@@ -2,31 +2,31 @@
 
 First import the necessary libraries:
 
-.. literalinclude:: ../examples/quick_start.py
+.. literalinclude:: examples/quick_start.py
     :start-after: example-st\u0061rt
     :lines: 1-4
     :dedent: 0
 
 Next, create a simple graph with self-avoiding edges (SAE) between nodes.
 
-.. literalinclude:: ../examples/quick_start.py
+.. literalinclude:: examples/quick_start.py
     :start-after: example-st\u0061rt
     :lines: 6-8
 
 
 Now, find all self-avoiding paths from a given start node to a target node.
 
-.. literalinclude:: ../examples/quick_start.py
+.. literalinclude:: examples/quick_start.py
     :start-after: example-st\u0061rt
     :lines: 11-16
 
 Finally, visualize the graph.
 
-.. literalinclude:: ../examples/quick_start.py
+.. literalinclude:: examples/quick_start.py
     :start-after: example-st\u0061rt
     :lines: 18
       
-.. figure:: ../examples/images/01.png
+.. figure:: examples/images/01.png
     :scale: 80 %
 """
 

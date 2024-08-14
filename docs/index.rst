@@ -30,11 +30,18 @@ Indices and tables
 * :ref:`search`
 
 
-Quick Start
+Chapters 
 ===========================
 
-.. automodule:: quick_start
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
 
+   examples/quick_guide_networkx
+   examples/quick_guide_igraph
+   examples/chap_02
+   examples/chap_03
+   examples/chap_04
 
 API and documentation
 ===========================

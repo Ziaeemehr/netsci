@@ -26,6 +26,7 @@ dependencies = [
     "setuptools-scm",
     "powerlaw",
     "tqdm",
+    "nbsphinx",
     "python-igraph"
 ]
 classifiers = [
