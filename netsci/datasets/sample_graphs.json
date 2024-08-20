@@ -64,7 +64,7 @@
     "function": "TOTDO add a function to load the file and make the graph"
   },
   "WWW":{
-    "filename": "WWW.edgelist.txt",
+    "filename": "www.edgelist.txt",
     "url": "https://networksciencebook.com/translations/en/resources/networks.zip",
     "description": "Nodes represent web pages form the University of Notre Dame under the domain nd.edu, directed links represent hyperlinks between them. Data collected in 1999. Ref: Albert, R., Jeong, H., & BarabÃ¡si, A. L. (1999). Internet: Diameter of the world-wide web. Nature, 401(6749), 130-131.",
     "directed": true,

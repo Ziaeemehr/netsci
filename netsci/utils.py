@@ -2,6 +2,7 @@ import os
 import gzip
 import json
 import numpy as np
+import igraph as ig
 import networkx as nx
 from numpy import power
 from os.path import join
@@ -114,7 +115,7 @@ def load_sample_graph(name, verbose=False):
     Parameters
     --------------
     name: str
-        The name of the graph. Get names from `netsci.utils.show_sample_graphs()`.
+        The name of the graph. Get names from `netsci.utils.list_sample_graphs()`.
     verbose: bool, optional
         If True, print information about the loaded graph. Default is True.
 
@@ -157,6 +158,65 @@ def list_sample_graphs():
         data = json.load(f)
 
     return data
+
+
+def _load_graphi(file_path, url, directed, verbose=False):
+    '''
+    load a graph from igraph
+    '''
+
+    # path = get_sample_dataset_path()
+    # path_zip = join(path, "networks.zip")
+    # if not os.path.isfile(file_path):
+    #     if not os.path.isfile(path_zip):
+    #         os.system(f"wget -P {path} {url}")
+
+    # if not os.path.isfile(file_path):
+    #     if os.path.isfile(path_zip):
+    #         os.system(f"unzip {path_zip} -d {path}")
+
+    edges = []
+    with open(file_path, "r") as file:
+        for line in file:
+            if line.startswith("#"):
+                continue  # Skip comments
+            A, B = map(int, line.split())
+            edges.append((A, B))
+    G = ig.Graph(edges=edges, directed=directed)
+    return G
+
+def load_sample_graphi(name, verbose=False):
+    '''
+    load a graph from igraph
+
+    Parameters
+    -------------
+    name: str
+        The name of the graph. Get names from `netsci.utils.list_sample_graphs()`.
+    verbose: bool, optional
+        If True, print information about the loaded graph. Default is True.
+
+    Returns
+    ---------
+    value: igraph.Graph
+        Loaded graph.
+    '''
+
+    path = get_sample_dataset_path()
+    with open(os.path.join(path, "sample_graphs.json"), "r") as f:
+        data = json.load(f)
+        if name in list(data.keys()):
+            filename = data[name]["filename"]
+            file_path = os.path.join(path, f"{filename}")
+            directed = data[name]["directed"]
+            G = _load_graphi(
+            file_path, url=data[name]["url"], directed=directed, verbose=verbose
+        )
+        if verbose:
+            print(f"Successfully loaded {name}")
+            print("================================")
+            print(data[name]["description"])
+        return G
 
 
 def generate_power_law_dist(N: int, a: float, xmin: float):
