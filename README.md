@@ -17,7 +17,8 @@
 ```bash
 pip install "git+https://github.com/Ziaeemehr/netsci.git"
 # or clone and install using
-pip install .
+git clone https://github.com/Ziaeemehr/netsci.git
+cd netsci && pip install .
 ```
 
 
