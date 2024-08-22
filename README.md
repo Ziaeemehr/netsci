@@ -6,6 +6,8 @@
 
 - Network Science, Barabási, 2013
 
+<img src="cover.jpeg" alt="Cover Image" width="300" height="auto">
+
 #### How to use 
 - using on Colab (Recommended)
 
