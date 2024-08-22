@@ -108,7 +108,7 @@ def _load_graph(file_path, url, directed, verbose=False):
     return G
 
 
-def load_sample_graph(name, verbose=False):
+def load_sample_graph(name, verbose=False, colab_path:str=None):
     """
     Load a graph and return it as a NetworkX graph.
 
@@ -124,9 +124,11 @@ def load_sample_graph(name, verbose=False):
     value: networkx.Graph
         Loaded graph.
     """
-
-    path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    path = os.path.join(path, "netsci/datasets/")
+    
+    if colab_path is None:
+        path = get_sample_dataset_path()
+    else:
+        path = join(colab_path)
 
     with open(os.path.join(path, "sample_graphs.json"), "r") as f:
         data = json.load(f)
