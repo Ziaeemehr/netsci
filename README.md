@@ -9,14 +9,16 @@
 #### How to use 
 - using on Colab (Recommended)
 
-    - Go to examples
-    - Open a notebook and click on "open on colab"
-    - Uncomment the cell with pip install command to install the netsci package.
+    - Use the following table to open and run the notebooks on **Google Colab**.
+    - Uncomment the cell with pip install command to install the **netsci** package and all the requirements.
 
 - using on local machines
 
 ```bash
-pip install "git+https://github.com/Ziaeemehr/netsci.git" 
+pip install "git+https://github.com/Ziaeemehr/netsci.git"
+# or clone and install using
+git clone https://github.com/Ziaeemehr/netsci.git
+cd netsci && pip install .
 ```
 
 
