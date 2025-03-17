@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 3 &#8212; netsci 0.1.dev1+ga98daff documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3ee1c6c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <script src="../_static/documentation_options.js?v=23f6d7f7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 4" href="chap_04.html" />
+    <link rel="prev" title="Chapter 2" href="chap_02.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="chap_04.html" title="Chapter 4"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="chap_02.html" title="Chapter 2"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">netsci 0.1.dev1+ga98daff documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chapter 3</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Chapter-3">
+<h1><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb">Chapter 3</a><a class="headerlink" href="#Chapter-3" title="Link to this heading">¶</a></h1>
+<section id="Random-Networks">
+<h2><strong>Random Networks</strong><a class="headerlink" href="#Random-Networks" title="Link to this heading">¶</a></h2>
+<p>Code by : Abolfazl Ziaeemehr</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Ziaeemehr">https://github.com/Ziaeemehr</a></p></li>
+</ul>
+<p><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># uncomment and run this line to install the package on colab</span>
+<span class="c1"># !pip install &quot;git+https://github.com/Ziaeemehr/netsci.git&quot; -q</span>
+</pre></div>
+</div>
+</div>
+<p>A random network consists of N nodes where each node pair is connected with probability p. To construct a random network we follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Start with N isolated nodes.</p></li>
+<li><p>Select a node pair and generate a random number between 0 and 1. If the number exceeds p, connect the selected node pair with a link, otherwise leave them disconnected.</p></li>
+<li><p>Repeat step (2) for each of the N(N-1)/2 node pairs.</p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netsci.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LABELSIZE</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;figure&#39;</span><span class="p">,</span> <span class="n">titlesize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;xtick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;ytick&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">LABELSIZE</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><br/><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_random_network</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># Initialize an empty graph</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>  <span class="c1"># Add N isolated nodes</span>
+
+    <span class="c1"># Iterate through each possible node pair</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">p</span><span class="p">:</span>  <span class="c1"># Generate a random number and compare it with p</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>  <span class="c1"># Connect the nodes if the condition is met</span>
+
+    <span class="k">return</span> <span class="n">G</span>
+
+<span class="c1"># Example usage:</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># Number of nodes</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.3</span>  <span class="c1"># Probability of edge creation</span>
+
+<span class="n">seed</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+<span class="n">random_network</span> <span class="o">=</span> <span class="n">create_random_network</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">random_network</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Random Network&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Axes: title={&#39;center&#39;: &#39;Random Network&#39;}&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_03_6_1.png" src="../_images/examples_chap_03_6_1.png" />
+</div>
+</div>
+<p>Other option would be to use the <code class="docutils literal notranslate"><span class="pre">nx.gnp_random_graph</span></code> function from NetworkX, which generates random graphs with a given number of nodes and a given probability of edge creation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">gnp_random_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="Binimial-distribution">
+<h2>Binimial distribution<a class="headerlink" href="#Binimial-distribution" title="Link to this heading">¶</a></h2>
+<p>Degree distribution in a random network follows a binomial distribution.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a random graph with N nodes and average degree of k</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">num_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]</span>
+<span class="n">average_degree</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">lambd</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">colors1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Reds</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">)):</span>
+    <span class="n">probability</span> <span class="o">=</span> <span class="n">average_degree</span> <span class="o">/</span> <span class="n">num_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">graph_b</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">gnp_random_graph</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">probability</span><span class="p">)</span>
+    <span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">graph_b</span><span class="o">.</span><span class="n">degree</span><span class="p">()]</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;N.bino=</span><span class="si">{</span><span class="n">num_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lambd</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;N.pois=</span><span class="si">{</span><span class="n">num_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;P(k)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_03_9_0.png" src="../_images/examples_chap_03_9_0.png" />
+</div>
+</div>
+</section>
+<section id="The-evolution-of-a-random-network">
+<h2>The evolution of a random network<a class="headerlink" href="#The-evolution-of-a-random-network" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Step 1: Generate a random graph (Erdős-Rényi model)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># number of nodes</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.12</span>  <span class="c1"># probability of edge creation</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Find all connected components</span>
+<span class="n">connected_components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+
+<span class="c1"># Step 3: Calculate the size of each connected component</span>
+<span class="n">component_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">component</span><span class="p">)</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">connected_components</span><span class="p">]</span>
+
+<span class="c1"># Display the graph and component sizes</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connected Components:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">component</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">connected_components</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Component </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: Size </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">component</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Optionally, visualize the graph</span>
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Connected Components:
+Component 1: Size 1
+Component 2: Size 1
+Component 3: Size 18
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_03_11_1.png" src="../_images/examples_chap_03_11_1.png" />
+</div>
+</div>
+<p>Plotting the size of giant connected component vs average degree</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">, Ln(N)= </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">k_avg</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">giant_component_sizes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k_avg</span><span class="p">)):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">k_avg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">connected_components</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+    <span class="n">component_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">component</span><span class="p">)</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">connected_components</span><span class="p">]</span>
+    <span class="n">giant_component_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">component_sizes</span><span class="p">)</span>
+    <span class="n">giant_component_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">giant_component_size</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;average k = </span><span class="si">{</span><span class="n">k_avg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">10.3f</span><span class="si">}</span><span class="s2">, giant_component_size=</span><span class="si">{</span><span class="n">giant_component_size</span><span class="si">:</span><span class="s2">10d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">giant_component_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">giant_component_sizes</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_avg</span><span class="p">,</span> <span class="n">giant_component_sizes</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Giant Component Size&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Average Degree&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$N_G / N$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+N=10000, Ln(N)= 9.210340371976182
+average k =      0.100, giant_component_size=         4
+average k =      0.500, giant_component_size=        11
+average k =      0.900, giant_component_size=       164
+average k =      1.000, giant_component_size=       480
+average k =      1.100, giant_component_size=      1682
+average k =      2.001, giant_component_size=      8028
+average k =      2.902, giant_component_size=      9363
+average k =      3.803, giant_component_size=      9755
+average k =      4.705, giant_component_size=      9909
+average k =      5.606, giant_component_size=      9967
+average k =      6.507, giant_component_size=      9989
+average k =      7.408, giant_component_size=      9999
+average k =      8.309, giant_component_size=      9997
+average k =      9.210, giant_component_size=      9998
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_03_13_1.png" src="../_images/examples_chap_03_13_1.png" />
+</div>
+</div>
+</section>
+<section id="Degree-distribution-of-real-networks">
+<h2>Degree distribution of real networks<a class="headerlink" href="#Degree-distribution-of-real-networks" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">netsci.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_sample_graph</span><span class="p">,</span> <span class="n">list_sample_graphs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netsci.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">graph_info</span>
+
+<span class="c1"># on google colab:</span>
+<span class="n">nets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Collaboration&#39;</span><span class="p">,</span> <span class="s1">&#39;Internet&#39;</span><span class="p">,</span> <span class="s1">&#39;PowerGrid&#39;</span><span class="p">,</span> <span class="s1">&#39;Protein&#39;</span><span class="p">,</span> <span class="s1">&#39;PhoneCalls&#39;</span><span class="p">,</span> <span class="s1">&#39;Citation&#39;</span><span class="p">,</span> <span class="s1">&#39;Metabolic&#39;</span><span class="p">,</span> <span class="s1">&#39;Email&#39;</span><span class="p">,</span> <span class="s1">&#39;WWW&#39;</span><span class="p">,</span> <span class="s1">&#39;Actor&#39;</span><span class="p">]</span>
+
+<span class="c1"># on local:</span>
+<span class="n">graphs</span> <span class="o">=</span> <span class="n">list_sample_graphs</span><span class="p">()</span>
+<span class="n">graphs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;Collaboration&#39;, &#39;Internet&#39;, &#39;PowerGrid&#39;, &#39;Protein&#39;, &#39;PhoneCalls&#39;, &#39;Citation&#39;, &#39;Metabolic&#39;, &#39;Email&#39;, &#39;WWW&#39;, &#39;Actor&#39;])
+</pre></div></div>
+</div>
+</section>
+<section id="On-Google-Colab-only:">
+<h2>On Google Colab only:<a class="headerlink" href="#On-Google-Colab-only:" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># URL of the zip file to be downloaded</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://networksciencebook.com/translations/en/resources/networks.zip&quot;</span>
+<span class="c1"># Mount Google Drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+<span class="c1"># Create the &#39;network_science&#39; directory in MyDrive if it doesn&#39;t exist</span>
+<span class="n">network_science_dir</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/network_science&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">network_science_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># empty the directory</span>
+<span class="err">!</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">network_science</span><span class="o">/*</span>
+<span class="c1"># Change directory to &#39;network_science&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">network_science_dir</span><span class="p">)</span>
+<span class="c1"># Download the zip file to the &#39;network_science&#39; directory</span>
+<span class="err">!</span><span class="n">wget</span> <span class="err">$</span><span class="n">url</span> <span class="o">-</span><span class="n">O</span> <span class="n">networks</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># Unzip the downloaded file in the &#39;network_science&#39; directory</span>
+<span class="err">!</span><span class="n">unzip</span> <span class="n">networks</span><span class="o">.</span><span class="n">zip</span>
+
+<span class="n">json_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/Ziaeemehr/netsci/main/netsci/datasets/sample_graphs.json&quot;</span>
+<span class="c1"># download json file</span>
+<span class="err">!</span><span class="n">wget</span> <span class="err">$</span><span class="n">json_file</span> <span class="o">-</span><span class="n">O</span> <span class="n">sample_graphs</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># on colab:</span>
+<span class="c1"># G_collab = load_sample_graph(&#39;Collaboration&#39;, verbose=True, colab_path=network_science_dir)</span>
+
+<span class="c1"># on local:</span>
+<span class="n">G_collab</span> <span class="o">=</span> <span class="n">load_sample_graph</span><span class="p">(</span><span class="s1">&#39;Collaboration&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">graph_info</span><span class="p">(</span><span class="n">G_collab</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Successfully loaded Collaboration
+================================
+Scientific collaboration network based on the arXiv preprint archive&#39;s
+ Condense Matter Physics category covering the period from January 1993 to April 2003.
+ Each node represents an author, and two nodes are connected if they co-authored at
+ least one paper in the dataset. Ref: Leskovec, J., Kleinberg, J., &amp; Faloutsos, C. (2007).
+ Graph evolution: Densification and shrinking diameters.
+ ACM Transactions on Knowledge Discovery from Data (TKDD), 1(1), 2.
+Graph information
+Directed                                :                False
+Number of nodes                         :                23133
+Number of edges                         :                93439
+Average degree                          :               8.0784
+Connectivity                            :         disconnected
+</pre></div></div>
+</div>
+<p>Figure 3.6</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">poisson</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Internet&quot;</span><span class="p">,</span> <span class="s2">&quot;Collaboration&quot;</span><span class="p">,</span> <span class="s2">&quot;Protein&quot;</span><span class="p">]:</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">load_sample_graph</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="c1"># on colab: add colab_path=network_science_dir</span>
+    <span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()]</span>
+    <span class="n">degree_count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">pk</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">degree_count</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">pk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span>
+
+
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">pk</span><span class="p">,</span> <span class="s1">&#39;k.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pk&quot;</span><span class="p">);</span>
+    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span><span class="o">*</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span>
+
+    <span class="c1"># add poisson distribution to graph</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pk_poisson</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">degrees</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">pk_poisson</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;poisson&#39;</span><span class="p">)</span>
+    <span class="c1"># plt.ylim([1e-5, 1])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_03_20_0.png" src="../_images/examples_chap_03_20_0.png" />
+</div>
+</div>
+</section>
+<section id="Clustering-coefficient">
+<h2>Clustering coefficient<a class="headerlink" href="#Clustering-coefficient" title="Link to this heading">¶</a></h2>
+<p>The local clustering coefficient of a random network is</p>
+<div class="math notranslate nohighlight">
+\[C_i = p= \frac{⟨k⟩}{N}\]</div>
+<p>To analyze the dependence of the average path length <span class="math notranslate nohighlight">\(d(p)\)</span> and the clustering coefficient <span class="math notranslate nohighlight">\(\langle C(p) \rangle\)</span> on the rewiring parameter <span class="math notranslate nohighlight">\(p\)</span> for a small-world network, you can use the Watts-Strogatz model. This model begins with a regular lattice and introduces randomness by rewiring each edge with probability <span class="math notranslate nohighlight">\(p\)</span>. Here’s a step-by-step guide on how to perform this analysis:</p>
+<ol class="arabic simple">
+<li><p><strong>Generate a regular lattice</strong>: Create a regular ring lattice with <span class="math notranslate nohighlight">\(N\)</span> nodes where each node is connected to its <span class="math notranslate nohighlight">\(k\)</span> nearest neighbors.</p></li>
+<li><p><strong>Rewire edges</strong>: For each edge in the lattice, rewire it with probability <span class="math notranslate nohighlight">\(p\)</span>. This involves replacing the existing edge with a new edge that connects the node to a randomly chosen node in the network.</p></li>
+<li><p><strong>Compute :math:`d(p)` and :math:`langle C(p) rangle`</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d(p)\)</span> is the average shortest path length between all pairs of nodes in the network.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\langle C(p) \rangle\)</span> is the average clustering coefficient of all nodes in the network.</p></li>
+</ul>
+</li>
+<li><p><strong>Normalize by :math:`d(0)` and :math:`langle C(0) rangle`</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d(0)\)</span> is the average path length of the regular lattice (when <span class="math notranslate nohighlight">\(p=0\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\langle C(0) \rangle\)</span> is the average clustering coefficient of the regular lattice (when <span class="math notranslate nohighlight">\(p=0\)</span>).</p></li>
+</ul>
+</li>
+<li><p><strong>Plot the results</strong>: Plot <span class="math notranslate nohighlight">\(d(p)/d(0)\)</span> and <span class="math notranslate nohighlight">\(\langle C(p) \rangle / \langle C(0) \rangle\)</span> as functions of <span class="math notranslate nohighlight">\(p\)</span> on a log scale to observe the small-world phenomenon.</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># Number of nodes</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">10</span>    <span class="c1"># Each node is connected to k nearest neighbors in ring topology</span>
+<span class="n">p_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># Rewiring probabilities</span>
+
+<span class="c1"># Initialize lists to store results</span>
+<span class="n">average_path_lengths</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">clustering_coefficients</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Generate the initial regular lattice</span>
+<span class="n">G0</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">d0</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">G0</span><span class="p">)</span>
+<span class="n">C0</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">G0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_values</span><span class="p">:</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="n">average_path_lengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span> <span class="o">/</span> <span class="n">d0</span><span class="p">)</span>
+    <span class="n">clustering_coefficients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C</span> <span class="o">/</span> <span class="n">C0</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Average path length plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">average_path_lengths</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$d(p)/d(0)$&quot;</span><span class="p">)</span>
+
+<span class="c1"># Clustering coefficient plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">clustering_coefficients</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\langle C(p) \rangle / \langle C(0) \rangle$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Rewiring probability p&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_03_23_0.png" src="../_images/examples_chap_03_23_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Chapter 3</a><ul>
+<li><a class="reference internal" href="#Random-Networks"><strong>Random Networks</strong></a></li>
+<li><a class="reference internal" href="#Binimial-distribution">Binimial distribution</a></li>
+<li><a class="reference internal" href="#The-evolution-of-a-random-network">The evolution of a random network</a></li>
+<li><a class="reference internal" href="#Degree-distribution-of-real-networks">Degree distribution of real networks</a></li>
+<li><a class="reference internal" href="#On-Google-Colab-only:">On Google Colab only:</a></li>
+<li><a class="reference internal" href="#Clustering-coefficient">Clustering coefficient</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="chap_02.html"
+                          title="previous chapter">Chapter 2</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="chap_04.html"
+                          title="next chapter">Chapter 4</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/chap_03.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="chap_04.html" title="Chapter 4"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="chap_02.html" title="Chapter 2"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">netsci 0.1.dev1+ga98daff documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chapter 3</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Abolfazl Ziaeemehr.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

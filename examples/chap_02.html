@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 2 &#8212; netsci 0.1.dev1+ga98daff documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=3ee1c6c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <script src="../_static/documentation_options.js?v=23f6d7f7"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 3" href="chap_03.html" />
+    <link rel="prev" title="igraph" href="quick_guide_igraph.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="chap_03.html" title="Chapter 3"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="quick_guide_igraph.html" title="igraph"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">netsci 0.1.dev1+ga98daff documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chapter 2</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="Chapter-2">
+<h1><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb">Chapter 2</a><a class="headerlink" href="#Chapter-2" title="Link to this heading">¶</a></h1>
+<section id="Graph-Theory">
+<h2><strong>Graph Theory</strong><a class="headerlink" href="#Graph-Theory" title="Link to this heading">¶</a></h2>
+<p>Code by : Abolfazl Ziaeemehr</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Ziaeemehr">https://github.com/Ziaeemehr</a></p></li>
+</ul>
+<p><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># uncomment and run this line to install the package on colab</span>
+<span class="c1"># !pip install &quot;git+https://github.com/Ziaeemehr/netsci.git&quot; -q</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">netsci</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netsci.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_graph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netsci.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_sap</span><span class="p">,</span> <span class="n">find_hamiltonian_path</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a random graph with n nodes and p% probability of edge connection</span>
+<span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">probability</span> <span class="o">=</span> <span class="mf">.4</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">gnp_random_graph</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">probability</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># degree distribution</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Degrees:&quot;</span><span class="p">,</span> <span class="n">degrees</span><span class="p">)</span>
+
+<span class="c1"># calculate the average degree</span>
+<span class="n">average_degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">degrees</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average degree:&quot;</span><span class="p">,</span> <span class="n">average_degree</span><span class="p">)</span>
+
+<span class="c1"># adjacency matrix</span>
+<span class="n">adjacency_matrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Adjacency matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">adjacency_matrix</span><span class="p">)</span>
+
+<span class="c1"># edges</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Edges:&quot;</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
+
+<span class="c1"># plot the graph</span>
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+           <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span>
+           <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+           <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Random Graph with </span><span class="si">{}</span><span class="s2"> nodes and </span><span class="si">{}% e</span><span class="s2">dge connection&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">probability</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Degrees: {0: 2, 1: 2, 2: 2, 3: 5, 4: 3, 5: 1, 6: 3, 7: 2}
+Average degree: 2.5
+Adjacency matrix:
+ [[0 0 0 1 1 0 0 0]
+ [0 0 1 0 0 0 1 0]
+ [0 1 0 1 0 0 0 0]
+ [1 0 1 0 0 1 1 1]
+ [1 0 0 0 0 0 1 1]
+ [0 0 0 1 0 0 0 0]
+ [0 1 0 1 1 0 0 0]
+ [0 0 0 1 1 0 0 0]]
+Edges: [(0, 3), (0, 4), (1, 2), (1, 6), (2, 3), (3, 5), (3, 6), (3, 7), (4, 6), (4, 7)]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_5_1.png" src="../_images/examples_chap_02_5_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># shortest path, find distance between two nodes</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span> <span class="c1"># random source node</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span> <span class="c1"># random target node</span>
+<span class="n">shortest_path</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shortest path from&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">shortest_path</span><span class="p">)</span>
+
+<span class="c1"># diameter : maximal shortest path length</span>
+<span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="n">diameter</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">diameter</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Diameter:&quot;</span><span class="p">,</span> <span class="n">diameter</span><span class="p">)</span>
+
+<span class="c1"># average shortest path length</span>
+<span class="n">avg_shortest_path_length</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average shortest path length: </span><span class="si">{</span><span class="n">avg_shortest_path_length</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Shortest path from 3 to 0 : [3, 0]
+Diameter: 3
+Average shortest path length: 1.82
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># directed graph</span>
+<span class="n">graph_dir</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_directed</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">graph_dir</span><span class="p">,</span>
+           <span class="n">node_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+           <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span>
+           <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+           <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+           <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Random DGraph with </span><span class="si">{}</span><span class="s2"> nodes and </span><span class="si">{}% e</span><span class="s2">dge connection&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">probability</span><span class="o">*</span><span class="mi">100</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_7_0.png" src="../_images/examples_chap_02_7_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># weighted graph</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="c1"># to fix the plot</span>
+
+<span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">probability</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">graph_w</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">probability</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">graph_w</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+    <span class="n">graph_w</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># plot the weighted graph</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">graph_w</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">graph_w</span><span class="p">,</span>
+           <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+           <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span>
+           <span class="n">node_size</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span>
+           <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+           <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span>
+           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+           <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Weighted Random Network&quot;</span><span class="p">)</span>
+
+<span class="n">weighted_adjacency_matrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">graph_w</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weighted adjacency matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">weighted_adjacency_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Weighted adjacency matrix:
+ [[0 9 4 9 9]
+ [9 0 1 6 4]
+ [4 1 0 0 6]
+ [9 6 0 0 8]
+ [9 4 6 8 0]]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_8_1.png" src="../_images/examples_chap_02_8_1.png" />
+</div>
+</div>
+<p>self avoiding path</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a graph</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">)]</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+
+<span class="c1"># Find all self-avoiding paths from &#39;A&#39; to &#39;F&#39;</span>
+<span class="n">start_node</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+<span class="n">target_node</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+<span class="n">all_saps</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_sap</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">start_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">all_saps</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+A-&gt;B-&gt;E-&gt;F
+A-&gt;C-&gt;F
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Axes: &gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_10_2.png" src="../_images/examples_chap_02_10_2.png" />
+</div>
+</div>
+<p>A Hamiltonian path is a path in a graph that visits each vertex exactly once.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example usage</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">find_hamiltonian_path</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hamiltonian Path found:&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Hamiltonian Path found&quot;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hamiltonian Path found: (1, 2, 3, 4, 5, 6)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_12_1.png" src="../_images/examples_chap_02_12_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># hamiltonian path of weighted graph:</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">find_hamiltonian_path</span><span class="p">(</span><span class="n">graph_w</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">path</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hamiltonian Path found:&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Hamiltonian Path found&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Hamiltonian Path found: (0, 1, 2, 4, 3)
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>Adjacency List</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">adjacency_matrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adjacency matrix</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">adjacency_matrix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">adjacency_list</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">neighbors</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">adj</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adjacency list</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">adjacency_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+adjacency matrix
+ [[0 1 1 0 0 0]
+ [1 0 0 1 1 0]
+ [1 0 0 0 0 1]
+ [0 1 0 0 0 0]
+ [0 1 0 0 0 1]
+ [0 0 1 0 1 0]]
+adjacency list
+ {1: [2, 3], 2: [1, 4, 5], 3: [1, 6], 4: [2], 5: [2, 6], 6: [3, 5]}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_15_1.png" src="../_images/examples_chap_02_15_1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Adjaceccy list of directed graph:</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">adjacency_matrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adjacency matrix</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">adjacency_matrix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">adjacency_list</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">neighbors</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">adj</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adjacency list</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">adjacency_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+adjacency matrix
+ [[0 1 1 0 0 0]
+ [0 0 0 1 1 0]
+ [0 0 0 0 0 1]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 1]
+ [0 0 0 0 0 0]]
+adjacency list
+ {1: [2, 3], 2: [4, 5], 3: [6], 4: [], 5: [6], 6: []}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_17_1.png" src="../_images/examples_chap_02_17_1.png" />
+</div>
+</div>
+<p><a class="reference external" href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/">Implementation of BFS for Graph using Adjacency List:</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+
+<span class="c1"># Function to perform Breadth First Search on a graph</span>
+<span class="c1"># represented using adjacency list</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bfs</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="n">startNode</span><span class="p">,</span> <span class="n">visited</span><span class="p">):</span>
+    <span class="c1"># Create a queue for BFS</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+
+    <span class="c1"># Mark the current node as visited and enqueue it</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">startNode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">startNode</span><span class="p">)</span>
+
+    <span class="c1"># Iterate over the queue</span>
+    <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+        <span class="c1"># Dequeue a vertex from queue and print it</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">currentNode</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get all adjacent vertices of the dequeued vertex</span>
+        <span class="c1"># If an adjacent has not been visited, then mark it visited and enqueue it</span>
+        <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">adjList</span><span class="p">[</span><span class="n">currentNode</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]:</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+<span class="c1"># Function to add an edge to the graph</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">addEdge</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">adjList</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Number of vertices in the graph</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="c1"># Adjacency list representation of the graph</span>
+    <span class="n">adjList</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vertices</span><span class="p">)]</span>
+
+    <span class="c1"># Add edges to the graph</span>
+    <span class="n">addEdge</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">addEdge</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">addEdge</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">addEdge</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">addEdge</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Mark all the vertices as not visited</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">vertices</span>
+
+    <span class="c1"># Perform BFS traversal starting from vertex 0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Breadth First Traversal starting from vertex 0:&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">bfs</span><span class="p">(</span><span class="n">adjList</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">visited</span><span class="p">)</span>
+
+    <span class="c1">#plot the graph</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+    <span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Breadth First Traversal starting from vertex 0: 0 1 2 3 4
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_chap_02_19_1.png" src="../_images/examples_chap_02_19_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">netsci.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">graph_info</span>
+<span class="n">graph_info</span><span class="p">(</span><span class="n">graph_w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Graph information
+Directed                                :                False
+Number of nodes                         :                    5
+Number of edges                         :                    9
+Average degree                          :               3.6000
+Connectivity                            :            connected
+</pre></div></div>
+</div>
+<section id="Table-2.1">
+<h3>Table 2.1<a class="headerlink" href="#Table-2.1" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netsci.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">average_degree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netsci.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">list_sample_graphs</span><span class="p">,</span> <span class="n">load_sample_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># nets = list(list_sample_graphs().keys())</span>
+<span class="n">nets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Collaboration&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Internet&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PowerGrid&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Protein&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PhoneCalls&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Citation&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Metabolic&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Email&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;WWW&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Actor&#39;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="run-the-following-only-on-colab">
+<h2>run the following only on colab<a class="headerlink" href="#run-the-following-only-on-colab" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><br/><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># URL of the zip file to be downloaded</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://networksciencebook.com/translations/en/resources/networks.zip&quot;</span>
+<span class="c1"># Mount Google Drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+<span class="c1"># Create the &#39;network_science&#39; directory in MyDrive if it doesn&#39;t exist</span>
+<span class="n">network_science_dir</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/network_science&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">network_science_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># empty the directory</span>
+<span class="err">!</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">network_science</span><span class="o">/*</span>
+<span class="c1"># Change directory to &#39;network_science&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">network_science_dir</span><span class="p">)</span>
+<span class="c1"># Download the zip file to the &#39;network_science&#39; directory</span>
+<span class="err">!</span><span class="n">wget</span> <span class="err">$</span><span class="n">url</span> <span class="o">-</span><span class="n">O</span> <span class="n">networks</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># Unzip the downloaded file in the &#39;network_science&#39; directory</span>
+<span class="err">!</span><span class="n">unzip</span> <span class="n">networks</span><span class="o">.</span><span class="n">zip</span>
+
+<span class="n">json_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/Ziaeemehr/netsci/main/netsci/datasets/sample_graphs.json&quot;</span>
+<span class="c1"># download json file</span>
+<span class="err">!</span><span class="n">wget</span> <span class="err">$</span><span class="n">json_file</span> <span class="o">-</span><span class="n">O</span> <span class="n">sample_graphs</span><span class="o">.</span><span class="n">json</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># on colab:</span>
+<span class="c1"># G = load_sample_graph(&quot;Internet&quot;, colab_path=network_science_dir)</span>
+
+<span class="c1"># on local:</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">load_sample_graph</span><span class="p">(</span><span class="s2">&quot;Internet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">graph_info</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Graph information
+Directed                                :                False
+Number of nodes                         :               192244
+Number of edges                         :               609066
+Average degree                          :               6.3364
+Connectivity                            :         disconnected
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">nets</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Processing sample graphs&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Processing sample graphs: 100%|██████████| 10/10 [00:00&lt;00:00, 79588.31it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Collaboration
+Internet
+PowerGrid
+Protein
+PhoneCalls
+Citation
+Metabolic
+Email
+WWW
+Actor
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">nets</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Processing sample graphs&quot;</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">load_sample_graph</span><span class="p">(</span><span class="n">net</span><span class="p">)</span> <span class="c1"># on colab: add colab_path=network_science_dir</span>
+    <span class="n">num_nodes</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+    <span class="n">num_edges</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+    <span class="n">avg_degree</span> <span class="o">=</span> <span class="n">average_degree</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="n">directed</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+    <span class="c1"># Append a dictionary of data for this network to the list</span>
+    <span class="n">data_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;num_nodes&#39;</span><span class="p">:</span> <span class="n">num_nodes</span><span class="p">,</span>
+        <span class="s1">&#39;num_edges&#39;</span><span class="p">:</span> <span class="n">num_edges</span><span class="p">,</span>
+        <span class="s1">&#39;avg_degree&#39;</span><span class="p">:</span> <span class="n">avg_degree</span><span class="p">,</span>
+        <span class="s2">&quot;directed&quot;</span><span class="p">:</span> <span class="n">directed</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">net</span>
+    <span class="p">})</span>
+
+<span class="c1"># Create the DataFrame from the list of dictionaries</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+
+<span class="c1"># Display the DataFrame</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Processing sample graphs: 100%|██████████| 9/9 [00:30&lt;00:00,  3.42s/it]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>num_nodes</th>
+      <th>num_edges</th>
+      <th>avg_degree</th>
+      <th>directed</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>23133</td>
+      <td>93439</td>
+      <td>8.078416</td>
+      <td>False</td>
+      <td>Collaboration</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>192244</td>
+      <td>609066</td>
+      <td>6.336385</td>
+      <td>False</td>
+      <td>Internet</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4941</td>
+      <td>6594</td>
+      <td>2.669095</td>
+      <td>False</td>
+      <td>PowerGrid</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018</td>
+      <td>2930</td>
+      <td>2.903865</td>
+      <td>False</td>
+      <td>Protein</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36595</td>
+      <td>91826</td>
+      <td>5.018500</td>
+      <td>True</td>
+      <td>PhoneCalls</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>449673</td>
+      <td>4689479</td>
+      <td>20.857285</td>
+      <td>True</td>
+      <td>Citation</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1039</td>
+      <td>5802</td>
+      <td>11.168431</td>
+      <td>True</td>
+      <td>Metabolic</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>57194</td>
+      <td>103731</td>
+      <td>3.627339</td>
+      <td>True</td>
+      <td>Email</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>325729</td>
+      <td>1497134</td>
+      <td>9.192513</td>
+      <td>True</td>
+      <td>WWW</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Chapter 2</a><ul>
+<li><a class="reference internal" href="#Graph-Theory"><strong>Graph Theory</strong></a><ul>
+<li><a class="reference internal" href="#Table-2.1">Table 2.1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#run-the-following-only-on-colab">run the following only on colab</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="quick_guide_igraph.html"
+                          title="previous chapter">igraph</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="chap_03.html"
+                          title="next chapter">Chapter 3</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/chap_02.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="chap_03.html" title="Chapter 3"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="quick_guide_igraph.html" title="igraph"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">netsci 0.1.dev1+ga98daff documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Chapter 2</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Abolfazl Ziaeemehr.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

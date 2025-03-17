@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python codes for Network Science, Barabási, 2013. &#8212; netsci 0.1.dev1+ga98daff documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=3ee1c6c6" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <script src="_static/documentation_options.js?v=23f6d7f7"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Networkx" href="examples/quick_guide_networkx.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples/quick_guide_networkx.html" title="Networkx"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">netsci 0.1.dev1+ga98daff documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python codes for Network Science, Barabási, 2013.</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="python-codes-for-network-science-barabasi-2013">
+<h1>Python codes for Network Science, Barabási, 2013.<a class="headerlink" href="#python-codes-for-network-science-barabasi-2013" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p>Barabási, A.L., 2013. Network science. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 371(1987), p.20120375.</p></li>
+</ul>
+<section id="installation-how-to-use">
+<h2>Installation, How to use<a class="headerlink" href="#installation-how-to-use" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>using on Colab (Recommended)</p>
+<ul>
+<li><p>Go to examples</p></li>
+<li><p>Open a notebook and click on “open on colab”</p></li>
+<li><p>Uncomment the cell with pip install command to install the netsci package.</p></li>
+</ul>
+</li>
+<li><p>using on local machines</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<span class="c1"># or</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/Ziaeemehr/netsci.git&quot;</span>
+</pre></div>
+</div>
+<section id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="table-of-chapters">
+<h2>Table of Chapters<a class="headerlink" href="#table-of-chapters" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>View Notebook</p></th>
+<th class="head"><p>Open in Colab</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_networkx.ipynb">Networkx quick guide</a></p></td>
+<td><p><a class="reference external" href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_networkx.ipynb">Networkx quick guide [C]</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_igraph.ipynb">Igraph quick guide</a></p></td>
+<td><p><a class="reference external" href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/quick_guide_igraph.ipynb">Igraph quick guide [C]</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb">Chapter 2</a></p></td>
+<td><p><a class="reference external" href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_02.ipynb">Chapter 2 [C]</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb">Chapter 3</a></p></td>
+<td><p><a class="reference external" href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_03.ipynb">Chapter 3 [C]</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/Ziaeemehr/netsci/blob/main/docs/examples/chap_04.ipynb">Chapter 4</a></p></td>
+<td><p><a class="reference external" href="https://colab.research.google.com/github/Ziaeemehr/netsci/blob/main/docs/examples/chap_04.ipynb">Chapter 4 [C]</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="chapters">
+<h2>Chapters<a class="headerlink" href="#chapters" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/quick_guide_networkx.html">Networkx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_networkx.html#Quick-Guide-for-Networkx"><strong>Quick Guide for Networkx</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/quick_guide_networkx.html#Creating-Graphs">Creating Graphs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_networkx.html#Basic-Graph-Types">Basic Graph Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_networkx.html#Adding-Nodes-and-Edges">Adding Nodes and Edges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_networkx.html#Node-and-Edge-Attributes">Node and Edge Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_networkx.html#Graph-Algorithms">Graph Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_networkx.html#Visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/quick_guide_igraph.html">igraph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Quick-Guide-for-igraph"><strong>Quick Guide for igraph</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Creating-Graphs">Creating Graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Graph-with-Nodes-and-Edges">Graph with Nodes and Edges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Assigning-Attributes">Assigning Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Retrieving-Attributes">Retrieving Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Load-graph-from-adjacency-list">Load graph from adjacency list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/quick_guide_igraph.html#Visualizing-Graphs">Visualizing Graphs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/chap_02.html">Chapter 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_02.html#Graph-Theory"><strong>Graph Theory</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/chap_02.html#Table-2.1">Table 2.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_02.html#run-the-following-only-on-colab">run the following only on colab</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/chap_03.html">Chapter 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_03.html#Random-Networks"><strong>Random Networks</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_03.html#Binimial-distribution">Binimial distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_03.html#The-evolution-of-a-random-network">The evolution of a random network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_03.html#Degree-distribution-of-real-networks">Degree distribution of real networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_03.html#On-Google-Colab-only:">On Google Colab only:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_03.html#Clustering-coefficient">Clustering coefficient</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/chap_04.html">Chapter 4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_04.html#THE-SCALE-FREE-PROPERTY"><strong>THE SCALE-FREE PROPERTY</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_04.html#Figure-4.4,-Comparing-Poisson-and-Powe-law-Distributions">Figure 4.4, Comparing Poisson and Powe-law Distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_04.html#load-sample-graphs-of-the-book">load sample graphs of the book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_04.html#On-Google-Colab-only">On Google Colab only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_04.html#Generate-the-powerlaw-distribution-(bounded)">Generate the powerlaw distribution (bounded)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/chap_04.html#Table-4.1">Table 4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/chap_04.html#Powerlaw-package">Powerlaw package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-netsci">
+<span id="api-and-documentation"></span><h2>API and documentation<a class="headerlink" href="#module-netsci" title="Link to this heading">¶</a></h2>
+<section id="module-netsci.analysis">
+<span id="netsci-analysis"></span><h3>netsci.analysis<a class="headerlink" href="#module-netsci.analysis" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.find_sap">
+<span class="sig-name descname"><span class="pre">find_sap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#find_sap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.find_sap" title="Link to this definition">¶</a></dt>
+<dd><p>Finds all self-avoiding paths (SAPs) in a given graph from a start node to a target node.
+A self-avoiding path is a path that does not revisit any node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>graph</strong><span class="classifier">NetworkX graph</span></dt><dd><p>The input graph where SAPs will be found.</p>
+</dd>
+<dt><strong>start</strong><span class="classifier">str or int</span></dt><dd><p>The node where the search for SAPs starts.</p>
+</dd>
+<dt><strong>target</strong><span class="classifier">str or int</span></dt><dd><p>The node where the search for SAPs ends.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">list, optional</span></dt><dd><p>Internal parameter used to keep track of the current path during the search.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd><p>A self-avoiding path from the start node to the target node.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start_node</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target_node</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_saps</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_sap</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">start_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">all_saps</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.is_hamiltonian_path">
+<span class="sig-name descname"><span class="pre">is_hamiltonian_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#is_hamiltonian_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.is_hamiltonian_path" title="Link to this definition">¶</a></dt>
+<dd><p>Check if a given path is a Hamiltonian path in a graph.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.find_hamiltonian_path">
+<span class="sig-name descname"><span class="pre">find_hamiltonian_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#find_hamiltonian_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.find_hamiltonian_path" title="Link to this definition">¶</a></dt>
+<dd><p>find the Hamiltonian path in given graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G: nx.Graph or nx.DiGraph</strong></dt><dd><p>input graph.</p>
+</dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>value</strong><span class="classifier">list of nodes in Hamiltonian path if exists, otherwise None.</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.check_connectivity">
+<span class="sig-name descname"><span class="pre">check_connectivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#check_connectivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.check_connectivity" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the graph is connected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G</strong><span class="classifier">networkx.Graph, networkx.DiGraph</span></dt><dd><p>The input graph.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>connectivity: (str)</dt><dd><p>for directed graphs, it returns 
+- “weakly connected”
+- “strongly connected”
+- “disconnected”.
+for undirected graphs, 
+- “connected” 
+- “disconnected”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.graph_info">
+<span class="sig-name descname"><span class="pre">graph_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quick</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#graph_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.graph_info" title="Link to this definition">¶</a></dt>
+<dd><p>Generate various graph information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G</strong><span class="classifier">(networkx.Graph, networkx.DiGraph)</span></dt><dd><p>The input graph for which the information is to be generated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.longest_shortest_path">
+<span class="sig-name descname"><span class="pre">longest_shortest_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#longest_shortest_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.longest_shortest_path" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the longest shortest path (diameter) in a given graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G (networkx.Graph or networkx.DiGraph):</strong></dt><dd><p>The input graph, which can be directed or undirected.
+The graph should be connected, otherwise the diameter will not be defined.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>value</strong><span class="classifier">int, float</span></dt><dd><p>The longest shortest path (diameter) in the graph.
+If the graph is empty, returns 0.
+If the graph is not connected, returns float(‘inf’).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.analysis.average_degree">
+<span class="sig-name descname"><span class="pre">average_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/analysis.html#average_degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.analysis.average_degree" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the average degree of a graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G (networkx.Graph or networkx.DiGraph):</strong></dt><dd><p>The input graph, which can be directed or undirected.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>vlaue: float</dt><dd><p>The average degree of the graph.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-netsci.utils">
+<span id="netsci-utils"></span><h3>netsci.utils<a class="headerlink" href="#module-netsci.utils" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.get_adjacency_list">
+<span class="sig-name descname"><span class="pre">get_adjacency_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#get_adjacency_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.get_adjacency_list" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an adjacency list representation of a given graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>G (networkx.Graph, networkx.DiGraph):</strong></dt><dd><p>The input graph for which the adjacency list is to be generated.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>value: dict</dt><dd><p>A dictionary where each key is a node in the graph and the corresponding value is a list of neighboring nodes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.download_sample_dataset">
+<span class="sig-name descname"><span class="pre">download_sample_dataset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#download_sample_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.download_sample_dataset" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.load_sample_graph">
+<span class="sig-name descname"><span class="pre">load_sample_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colab_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#load_sample_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.load_sample_graph" title="Link to this definition">¶</a></dt>
+<dd><p>Load a graph and return it as a NetworkX graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name: str</strong></dt><dd><p>The name of the graph. Get names from <a class="reference internal" href="#netsci.utils.list_sample_graphs" title="netsci.utils.list_sample_graphs"><code class="xref any py py-func docutils literal notranslate"><span class="pre">netsci.utils.list_sample_graphs()</span></code></a>.</p>
+</dd>
+<dt><strong>verbose: bool, optional</strong></dt><dd><p>If True, print information about the loaded graph. Default is True.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>value: networkx.Graph</dt><dd><p>Loaded graph.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.list_sample_graphs">
+<span class="sig-name descname"><span class="pre">list_sample_graphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#list_sample_graphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.list_sample_graphs" title="Link to this definition">¶</a></dt>
+<dd><p>make a list of available real world graphs on datasets</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.load_sample_graphi">
+<span class="sig-name descname"><span class="pre">load_sample_graphi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#load_sample_graphi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.load_sample_graphi" title="Link to this definition">¶</a></dt>
+<dd><p>load a graph from igraph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name: str</strong></dt><dd><p>The name of the graph. Get names from <a class="reference internal" href="#netsci.utils.list_sample_graphs" title="netsci.utils.list_sample_graphs"><code class="xref any py py-func docutils literal notranslate"><span class="pre">netsci.utils.list_sample_graphs()</span></code></a>.</p>
+</dd>
+<dt><strong>verbose: bool, optional</strong></dt><dd><p>If True, print information about the loaded graph. Default is True.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>value: igraph.Graph</dt><dd><p>Loaded graph.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.generate_power_law_dist">
+<span class="sig-name descname"><span class="pre">generate_power_law_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#generate_power_law_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.generate_power_law_dist" title="Link to this definition">¶</a></dt>
+<dd><p>generate power law random numbers p(k) ~ x^(-a) for a&gt;1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N:</strong></dt><dd><p>is the number of random numbers</p>
+</dd>
+<dt><strong>a:</strong></dt><dd><p>is the exponent</p>
+</dd>
+<dt><strong>xmin:</strong></dt><dd><p>is the minimum value of distribution</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>value: np.array</dt><dd><p>powerlaw distribution</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.generate_power_law_dist_bounded">
+<span class="sig-name descname"><span class="pre">generate_power_law_dist_bounded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#generate_power_law_dist_bounded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.generate_power_law_dist_bounded" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a power law distribution of floats p(k) ~ x^(-a) for a&gt;1
+which is bounded by xmin and xmax</p>
+<dl class="simple">
+<dt>parameters :</dt><dd><dl class="simple">
+<dt>N: int</dt><dd><p>number of samples in powerlaw distribution (pwd).</p>
+</dd>
+<dt>a:</dt><dd><p>exponent of the pwd.</p>
+</dd>
+<dt>xmin:</dt><dd><p>min value in pwd.</p>
+</dd>
+<dt>xmax:</dt><dd><p>max value in pwd.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.generate_power_law_discrete">
+<span class="sig-name descname"><span class="pre">generate_power_law_discrete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#generate_power_law_discrete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.generate_power_law_discrete" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a power law distribution of p(k) ~ x^(-a) for a&gt;1,
+with discrete values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.tune_min_degree">
+<span class="sig-name descname"><span class="pre">tune_min_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iteration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#tune_min_degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.tune_min_degree" title="Link to this definition">¶</a></dt>
+<dd><p>Find the minimum degree value of a power law graph that results in a connected graph</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.make_powerlaw_graph">
+<span class="sig-name descname"><span class="pre">make_powerlaw_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_degree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#make_powerlaw_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.make_powerlaw_graph" title="Link to this definition">¶</a></dt>
+<dd><p>make a powerlaw graph with the given parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N:</strong></dt><dd><p>number of nodes</p>
+</dd>
+<dt><strong>a: float</strong></dt><dd><p>exponent of the power law distribution</p>
+</dd>
+<dt><strong>avg_degree:</strong></dt><dd><p>expected average degree</p>
+</dd>
+<dt><strong>xmin: int, optional</strong></dt><dd><p>minimum value in the power law distribution. Default is 1.</p>
+</dd>
+<dt><strong>xmax: int, optional</strong></dt><dd><p>maximum value in the power law distribution. Default is 10000.</p>
+</dd>
+<dt><strong>seed: int, optional</strong></dt><dd><p>Seed for reproducibility. Default is -1.</p>
+</dd>
+<dt><strong>xtol: float, optional</strong></dt><dd><p>tolerance for bisection method. Default is 0.01.</p>
+</dd>
+<dt><strong>degree_interval: float, optional</strong></dt><dd><p>interval for bisection method. Default is 5.0.</p>
+</dd>
+<dt><strong>plot: bool, optional</strong></dt><dd><p>If True, plot the power law distribution. Default is False.</p>
+</dd>
+<dt><strong>kwargs: obtional</strong></dt><dd><p>additional keyword arguments for plot_pdf function.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.generate_power_law_discrete_its">
+<span class="sig-name descname"><span class="pre">generate_power_law_discrete_its</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#generate_power_law_discrete_its"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.generate_power_law_discrete_its" title="Link to this definition">¶</a></dt>
+<dd><p>Generates the power law discrete distributions using the inverse transform sampling method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>alpha</strong></dt><dd><p>Power law exponent.</p>
+</dd>
+<dt><strong>k_min</strong></dt><dd><p>Minimum degree.</p>
+</dd>
+<dt><strong>k_max</strong></dt><dd><p>Maximum degree.</p>
+</dd>
+<dt><strong>size</strong></dt><dd><p>Number of samples to generate. Defaults to 1.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>np.array:</dt><dd><p>Array of generated power law discrete distributions.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Devroye, L. (1986). “Non-Uniform Random Variate Generation.” Springer-Verlag, New York.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">2.5</span>  <span class="c1"># Power-law exponent</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_min</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># Minimum value of k</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_max</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># Maximum value of k</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">size</span> <span class="o">=</span> <span class="mi">10000</span> <span class="c1"># Number of samples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="n">power_law_discrete</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">k_min</span><span class="p">,</span> <span class="n">k_max</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.utils.get_sample_dataset_path">
+<span class="sig-name descname"><span class="pre">get_sample_dataset_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/utils.html#get_sample_dataset_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.utils.get_sample_dataset_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-netsci.plot">
+<span id="netsci-plot"></span><h3>netsci.plot<a class="headerlink" href="#module-netsci.plot" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="netsci.plot.plot_graph">
+<span class="sig-name descname"><span class="pre">plot_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/netsci/plot.html#plot_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#netsci.plot.plot_graph" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a NetworkX graph with customizable options.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>G</strong><span class="classifier">NetworkX graph</span></dt><dd><p>A NetworkX graph object (e.g., nx.Graph, nx.DiGraph).</p>
+</dd>
+<dt><strong>**kwargs</strong><span class="classifier">keyword arguments</span></dt><dd><p>Additional keyword arguments to customize the plot. These can include:</p>
+<dl class="simple">
+<dt>node_color<span class="classifier">str or list, optional</span></dt><dd><p>Color of the nodes (can be a single color or a list of colors).</p>
+</dd>
+<dt>node_size<span class="classifier">int or list, optional</span></dt><dd><p>Size of the nodes (single value or list of sizes).</p>
+</dd>
+<dt>edge_color<span class="classifier">str or list, optional</span></dt><dd><p>Color of the edges (can be a single color or a list of colors).</p>
+</dd>
+<dt>width<span class="classifier">float, optional</span></dt><dd><p>Width of the edges.</p>
+</dd>
+<dt>with_labels<span class="classifier">bool, optional</span></dt><dd><p>Whether to draw node labels or not.</p>
+</dd>
+<dt>font_size<span class="classifier">int, optional</span></dt><dd><p>Size of the font for node labels.</p>
+</dd>
+<dt>font_color<span class="classifier">str, optional</span></dt><dd><p>Color of the font for node labels.</p>
+</dd>
+<dt>title<span class="classifier">str, optional</span></dt><dd><p>Title of the plot.</p>
+</dd>
+<dt>seed<span class="classifier">int, optional</span></dt><dd><p>Seed for the random layout algorithm.</p>
+</dd>
+<dt>figsize<span class="classifier">tuple, optional</span></dt><dd><p>Size of the figure.</p>
+</dd>
+<dt>ax: axes object</dt><dd><p>Axes object to draw the plot on. Defaults to None, which will create a new figure.</p>
+</dd>
+<dt>pos: object, optional</dt><dd><p>Graph layout (e.g., nx.spring_layout, nx.circular_layout), nx.kamada_kaway_layout(G). 
+Defaults to nx.spring_layout(G).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Python codes for Network Science, Barabási, 2013.</a><ul>
+<li><a class="reference internal" href="#installation-how-to-use">Installation, How to use</a><ul>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#table-of-chapters">Table of Chapters</a></li>
+<li><a class="reference internal" href="#chapters">Chapters</a></li>
+<li><a class="reference internal" href="#module-netsci">API and documentation</a><ul>
+<li><a class="reference internal" href="#module-netsci.analysis">netsci.analysis</a><ul>
+<li><a class="reference internal" href="#netsci.analysis.find_sap"><code class="docutils literal notranslate"><span class="pre">find_sap()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.analysis.is_hamiltonian_path"><code class="docutils literal notranslate"><span class="pre">is_hamiltonian_path()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.analysis.find_hamiltonian_path"><code class="docutils literal notranslate"><span class="pre">find_hamiltonian_path()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.analysis.check_connectivity"><code class="docutils literal notranslate"><span class="pre">check_connectivity()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.analysis.graph_info"><code class="docutils literal notranslate"><span class="pre">graph_info()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.analysis.longest_shortest_path"><code class="docutils literal notranslate"><span class="pre">longest_shortest_path()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.analysis.average_degree"><code class="docutils literal notranslate"><span class="pre">average_degree()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-netsci.utils">netsci.utils</a><ul>
+<li><a class="reference internal" href="#netsci.utils.get_adjacency_list"><code class="docutils literal notranslate"><span class="pre">get_adjacency_list()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.download_sample_dataset"><code class="docutils literal notranslate"><span class="pre">download_sample_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.load_sample_graph"><code class="docutils literal notranslate"><span class="pre">load_sample_graph()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.list_sample_graphs"><code class="docutils literal notranslate"><span class="pre">list_sample_graphs()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.load_sample_graphi"><code class="docutils literal notranslate"><span class="pre">load_sample_graphi()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.generate_power_law_dist"><code class="docutils literal notranslate"><span class="pre">generate_power_law_dist()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.generate_power_law_dist_bounded"><code class="docutils literal notranslate"><span class="pre">generate_power_law_dist_bounded()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.generate_power_law_discrete"><code class="docutils literal notranslate"><span class="pre">generate_power_law_discrete()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.tune_min_degree"><code class="docutils literal notranslate"><span class="pre">tune_min_degree()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.make_powerlaw_graph"><code class="docutils literal notranslate"><span class="pre">make_powerlaw_graph()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.generate_power_law_discrete_its"><code class="docutils literal notranslate"><span class="pre">generate_power_law_discrete_its()</span></code></a></li>
+<li><a class="reference internal" href="#netsci.utils.get_sample_dataset_path"><code class="docutils literal notranslate"><span class="pre">get_sample_dataset_path()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-netsci.plot">netsci.plot</a><ul>
+<li><a class="reference internal" href="#netsci.plot.plot_graph"><code class="docutils literal notranslate"><span class="pre">plot_graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="examples/quick_guide_networkx.html"
+                          title="next chapter">Networkx</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples/quick_guide_networkx.html" title="Networkx"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">netsci 0.1.dev1+ga98daff documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python codes for Network Science, Barabási, 2013.</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Abolfazl Ziaeemehr.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
