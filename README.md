@@ -1,6 +1,7 @@
 [![Test](https://github.com/Ziaeemehr/netsci/actions/workflows/tests.yml/badge.svg)](https://github.com/Ziaeemehr/netsci/actions/workflows/tests.yml)
 [![Documentation Status](https://github.com/Ziaeemehr/netsci/actions/workflows/documents.yml/badge.svg
 )](https://ziaeemehr.github.io/netsci/)
+[![DOI](https://zenodo.org/badge/836206498.svg)](https://doi.org/10.5281/zenodo.15038832)
 
 # Network science notebooks
 
